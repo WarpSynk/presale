@@ -1,1 +1,340 @@
 
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WarpSynk Presale — $WSYNK</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom gradient and glass styles */
+    :root{
+      --bg-1: #0b0120;
+      --bg-2: #13042a;
+      --accent-1: #6c4cff;
+      --accent-2: #9b6bff;
+      --glass: rgba(255,255,255,0.04);
+    }
+    body{
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(108,76,255,0.12), transparent), radial-gradient(900px 500px at 90% 90%, rgba(155,107,255,0.08), transparent), linear-gradient(180deg, var(--bg-1), var(--bg-2));
+      color: #e6e6f3;
+      -webkit-font-smoothing:antialiased;
+    }
+    .glass{
+      backdrop-filter: blur(8px) saturate(120%);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .accent-gradient{
+      background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  </style>
+</head>
+<body class="min-h-screen font-sans">
+  <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+    <div class="flex items-center gap-4">
+      <img src="https://pbs.twimg.com/profile_images/1953264729033437185/2iagT6Gy.jpg" alt="WarpSynk Logo" class="w-12 h-12 rounded-full object-cover" />
+      <div>
+        <div class="text-xl font-semibold">WarpSynk</div>
+        <div class="text-xs text-gray-300">$WSYNK presale</div>
+      </div>
+    </div>
+    <nav class="hidden md:flex gap-6 text-sm text-gray-200">
+      <a href="#presale">Presale</a>
+      <a href="#tokenomics">Tokenomics</a>
+      <a href="#how-to-buy">How to buy</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <button id="connectBtn" class="px-4 py-2 rounded-lg glass text-sm">Connect Wallet</button>
+      <a href="#buy" class="px-4 py-2 rounded-lg bg-gradient-to-r from-[#6c4cff] to-[#9b6bff] text-black text-sm font-medium">Buy</a>
+    </div>
+  </header>  <main class="max-w-6xl mx-auto px-6 py-10">
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h1 class="text-4xl md:text-5xl font-bold leading-tight">WarpSynk Protocol presale</h1>
+        <p class="mt-4 text-gray-300 max-w-xl">$WSYNK returns identity and data value to users. Only 10% of total supply is open for presale. Join the founders round.</p><div class="mt-8 grid grid-cols-2 gap-4">
+      <div class="p-4 glass rounded-lg">
+        <div class="text-xs text-gray-300">Total supply</div>
+        <div class="text-xl font-semibold">250,000,000 $WSYNK</div>
+      </div>
+      <div class="p-4 glass rounded-lg">
+        <div class="text-xs text-gray-300">Presale allocation</div>
+        <div class="text-xl font-semibold">25,000,000 $WSYNK</div>
+      </div>
+      <div class="p-4 glass rounded-lg">
+        <div class="text-xs text-gray-300">Price</div>
+        <div class="text-xl font-semibold">0.02 ETH per 10,000 $WSYNK</div>
+      </div>
+      <div class="p-4 glass rounded-lg">
+        <div class="text-xs text-gray-300">Network</div>
+        <div class="text-xl font-semibold">Solana / SolPg bridge live</div>
+      </div>
+    </div>
+
+    <div class="mt-8 flex gap-3">
+      <a href="#buy" class="px-5 py-3 rounded-lg bg-gradient-to-r from-[#6c4cff] to-[#9b6bff] text-black font-medium">Participate</a>
+      <a href="#tokenomics" class="px-5 py-3 rounded-lg glass">View tokenomics</a>
+    </div>
+  </div>
+
+  <div class="p-6 glass rounded-2xl">
+    <div class="flex items-center justify-between">
+      <div>
+        <div class="text-xs text-gray-300">Presale progress</div>
+        <div class="text-2xl font-semibold mt-1" id="raisedText">0 ETH</div>
+      </div>
+      <div class="text-right">
+        <div class="text-xs text-gray-300">Goal</div>
+        <div class="text-lg font-semibold">5,000 ETH</div>
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <div class="w-full h-4 bg-white/6 rounded-full overflow-hidden">
+        <div id="progressBar" class="h-4 rounded-full" style="width:0%; background: linear-gradient(90deg,#6c4cff,#9b6bff)"></div>
+      </div>
+      <div class="flex justify-between text-xs text-gray-400 mt-2">
+        <div id="soldTokens">0 $WSYNK</div>
+        <div id="remainingTokens">25,000,000 $WSYNK left</div>
+      </div>
+    </div>
+
+    <div class="mt-6 border-t border-white/6 pt-4">
+      <div class="text-sm text-gray-300">Quick buy</div>
+      <div class="mt-3 flex gap-2">
+        <input id="ethInput" type="number" placeholder="ETH amount" class="w-full p-3 rounded-lg bg-transparent border border-white/6 outline-none" />
+        <button id="quickBuy" class="px-4 py-3 rounded-lg bg-gradient-to-r from-[#6c4cff] to-[#9b6bff] text-black">Estimate</button>
+      </div>
+      <div class="mt-3 text-sm text-gray-300" id="estimateText">Enter ETH to see token amount</div>
+    </div>
+  </div>
+</section>
+
+<section id="tokenomics" class="mt-12">
+  <h2 class="text-2xl font-bold">Tokenomics</h2>
+  <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="p-4 glass rounded-lg">
+      <div class="text-xs text-gray-300">Presale</div>
+      <div class="text-lg font-semibold">10%, 25,000,000</div>
+    </div>
+    <div class="p-4 glass rounded-lg">
+      <div class="text-xs text-gray-300">Team</div>
+      <div class="text-lg font-semibold">20%, vest 24 months</div>
+    </div>
+    <div class="p-4 glass rounded-lg">
+      <div class="text-xs text-gray-300">Ecosystem</div>
+      <div class="text-lg font-semibold">40%</div>
+    </div>
+    <div class="p-4 glass rounded-lg">
+      <div class="text-xs text-gray-300">Staking</div>
+      <div class="text-lg font-semibold">15%</div>
+    </div>
+    <div class="p-4 glass rounded-lg">
+      <div class="text-xs text-gray-300">Liquidity</div>
+      <div class="text-lg font-semibold">10%</div>
+    </div>
+    <div class="p-4 glass rounded-lg">
+      <div class="text-xs text-gray-300">Airdrop</div>
+      <div class="text-lg font-semibold">5%</div>
+    </div>
+  </div>
+
+  <div class="mt-8 p-6 glass rounded-lg">
+    <h3 class="font-semibold">Allocation table</h3>
+    <div class="mt-4 overflow-auto">
+      <table class="w-full text-left text-sm">
+        <thead class="text-gray-300 text-xs uppercase">
+          <tr>
+            <th class="py-2">Category</th>
+            <th class="py-2">Percent</th>
+            <th class="py-2">Amount</th>
+          </tr>
+        </thead>
+        <tbody class="text-gray-200">
+          <tr class="border-t border-white/6">
+            <td class="py-2">Presale</td>
+            <td class="py-2">10%</td>
+            <td class="py-2">25,000,000</td>
+          </tr>
+          <tr class="border-t border-white/6">
+            <td class="py-2">Team</td>
+            <td class="py-2">20%</td>
+            <td class="py-2">50,000,000</td>
+          </tr>
+          <tr class="border-t border-white/6">
+            <td class="py-2">Ecosystem</td>
+            <td class="py-2">40%</td>
+            <td class="py-2">100,000,000</td>
+          </tr>
+          <tr class="border-t border-white/6">
+            <td class="py-2">Staking</td>
+            <td class="py-2">15%</td>
+            <td class="py-2">37,500,000</td>
+          </tr>
+          <tr class="border-t border-white/6">
+            <td class="py-2">Liquidity</td>
+            <td class="py-2">10%</td>
+            <td class="py-2">25,000,000</td>
+          </tr>
+          <tr class="border-t border-white/6">
+            <td class="py-2">Airdrop</td>
+            <td class="py-2">5%</td>
+            <td class="py-2">12,500,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="how-to-buy" class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="p-6 glass rounded-lg">
+    <h3 class="text-lg font-semibold">How to buy</h3>
+    <ol class="mt-4 list-decimal list-inside text-gray-300 space-y-2">
+      <li>Install a wallet like MetaMask or Phantom.</li>
+      <li>Connect wallet using Connect Wallet button.</li>
+      <li>Enter ETH amount and press Estimate to see tokens.</li>
+      <li>Press Buy to send the transaction through your wallet.</li>
+    </ol>
+  </div>
+
+  <div id="buy" class="p-6 glass rounded-lg">
+    <h3 class="text-lg font-semibold">Buy interface</h3>
+    <div class="mt-4">
+      <label class="text-xs text-gray-300">ETH amount</label>
+      <input id="buyEth" type="number" placeholder="0.1" step="0.01" class="w-full p-3 mt-2 rounded-lg bg-transparent border border-white/6 outline-none" />
+
+      <label class="text-xs text-gray-300 mt-4 block">Receive (approx)</label>
+      <div id="buyReceive" class="mt-2 p-3 rounded-lg glass">0 $WSYNK</div>
+
+      <div class="mt-4 flex gap-3">
+        <button id="estimateBuy" class="px-4 py-3 rounded-lg bg-gradient-to-r from-[#6c4cff] to-[#9b6bff] text-black">Estimate</button>
+        <button id="doBuy" class="px-4 py-3 rounded-lg glass">Buy</button>
+      </div>
+
+      <p class="text-xs text-gray-400 mt-3">This interface is a frontend mock. Integrate your contract for live purchases.</p>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="mt-12">
+  <h2 class="text-2xl font-bold">FAQ</h2>
+  <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="p-4 glass rounded-lg">
+      <div class="font-semibold">What is $WSYNK?</div>
+      <div class="text-sm text-gray-300 mt-2">Utility token for WarpSynk Protocol. Identity staking, governance, rewards.</div>
+    </div>
+    <div class="p-4 glass rounded-lg">
+      <div class="font-semibold">How much is offered in presale?</div>
+      <div class="text-sm text-gray-300 mt-2">10% of supply, 25,000,000 $WSYNK.</div>
+    </div>
+    <div class="p-4 glass rounded-lg">
+      <div class="font-semibold">Which network?</div>
+      <div class="text-sm text-gray-300 mt-2">Primary on Solana with bridging options. Token contract address will be posted before sale.</div>
+    </div>
+    <div class="p-4 glass rounded-lg">
+      <div class="font-semibold">Security</div>
+      <div class="text-sm text-gray-300 mt-2">Audit report will be published. Use official links only.</div>
+    </div>
+  </div>
+</section>
+
+  </main>  <footer class="max-w-6xl mx-auto px-6 py-8 text-center text-sm text-gray-400">
+    <div>WarpSynk Protocol. $WSYNK presale page.</div>
+    <div class="mt-3">Use official channels for links and contracts.</div>
+  </footer>  <script>
+    // Presale parameters
+    const TOTAL_SUPPLY = 250000000
+    const PRESALE_TOKENS = 25000000
+    const PRESALE_GOAL_ETH = 5000
+    const PRICE_ETH_PER_10000 = 0.02
+    // Derived
+    const TOKENS_PER_ETH = 10000 / PRICE_ETH_PER_10000
+
+    let raisedEth = 0
+
+    // DOM refs
+    const progressBar = document.getElementById('progressBar')
+    const raisedText = document.getElementById('raisedText')
+    const soldTokens = document.getElementById('soldTokens')
+    const remainingTokens = document.getElementById('remainingTokens')
+    const ethInput = document.getElementById('ethInput')
+    const estimateText = document.getElementById('estimateText')
+    const quickBuy = document.getElementById('quickBuy')
+    const estimateBuy = document.getElementById('estimateBuy')
+    const buyEth = document.getElementById('buyEth')
+    const buyReceive = document.getElementById('buyReceive')
+    const doBuy = document.getElementById('doBuy')
+    const connectBtn = document.getElementById('connectBtn')
+
+    function updateUi(){
+      raisedText.textContent = raisedEth.toFixed(3) + ' ETH'
+      const sold = Math.min(Math.floor(raisedEth * TOKENS_PER_ETH), PRESALE_TOKENS)
+      soldTokens.textContent = sold.toLocaleString() + ' $WSYNK'
+      remainingTokens.textContent = (PRESALE_TOKENS - sold).toLocaleString() + ' $WSYNK left'
+      const pct = Math.min(100, (raisedEth / PRESALE_GOAL_ETH) * 100)
+      progressBar.style.width = pct + '%'
+    }
+
+    quickBuy.addEventListener('click', ()=>{
+      const eth = parseFloat(ethInput.value || '0')
+      if(!eth || eth <= 0){
+        estimateText.textContent = 'Enter a positive ETH amount'
+        return
+      }
+      const tokens = Math.floor(eth * TOKENS_PER_ETH)
+      estimateText.textContent = tokens.toLocaleString() + ' $WSYNK estimated'
+    })
+
+    estimateBuy.addEventListener('click', ()=>{
+      const eth = parseFloat(buyEth.value || '0')
+      if(!eth || eth <= 0){
+        buyReceive.textContent = 'Enter a positive ETH amount'
+        return
+      }
+      const tokens = Math.floor(eth * TOKENS_PER_ETH)
+      buyReceive.textContent = tokens.toLocaleString() + ' $WSYNK (approx)'
+    })
+
+    doBuy.addEventListener('click', async ()=>{
+      const eth = parseFloat(buyEth.value || '0')
+      if(!eth || eth <= 0){
+        alert('Enter a positive ETH amount')
+        return
+      }
+      // This is a frontend mock. Replace with contract interaction.
+      const tokens = Math.floor(eth * TOKENS_PER_ETH)
+      const possibleSold = Math.min(tokens, PRESALE_TOKENS - Math.floor(raisedEth * TOKENS_PER_ETH))
+      if(possibleSold <= 0){
+        alert('Presale sold out or no tokens remaining')
+        return
+      }
+      // Simulate successful purchase
+      raisedEth += eth
+      updateUi()
+      alert('Purchase simulated. Integrate your contract for live flow')
+    })
+
+    connectBtn.addEventListener('click', async ()=>{
+      if(window.ethereum){
+        try{
+          await window.ethereum.request({ method: 'eth_requestAccounts' })
+          connectBtn.textContent = 'Wallet connected'
+          connectBtn.classList.add('opacity-70')
+        }catch(e){
+          alert('Connection rejected')
+        }
+      }else{
+        alert('No injected wallet detected')
+      }
+    })
+
+    // initial UI
+    updateUi()
+  </script></body>
+</html>
